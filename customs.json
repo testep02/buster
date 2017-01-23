@@ -1,0 +1,27 @@
+{
+    "elements": {},
+    "attributes": {
+        "crossorigin": {
+            "context": "link"
+        },
+        "th:text": {
+            "context": "span"
+        },
+        "th:include": {},
+        "th:src": {
+            "context": "script"
+        },
+        "placeholder": {
+            "context": "input"
+        },
+        "th:href": {
+            "context": "link"
+        },
+        "th:each": {
+            "context": "tr"
+        },
+        "th:attr": {
+            "context": "input"
+        }
+    }
+}

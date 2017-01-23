@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>AirDrop - Environment</title>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              crossorigin="anonymous" />
+        <link rel="stylesheet" th:href="@{assets/css/main.css}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div th:include="fragments/mainmenu" />
+        
+        <div class="container">
+            <h2>Environment Servers</h2>
+            
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>IP</th>
+                  <th>Status</th>
+                  <th></th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Applications</td>
+                  <td>10.0.0.0</td>
+                  <td>Online</td>
+                  <td>
+                      <a href="#">Restart</a><br />
+                      <a href="#">View Services</a><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td>Data</td>
+                  <td>10.0.0.0</td>
+                  <td>Online</td>
+                  <td>
+                      <a href="#">Restart</a><br />
+                      <a href="#">View Services</a><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td>AE</td>
+                  <td>10.0.0.0</td>
+                  <td>Online</td>
+                  <td>
+                      <a href="#">Restart</a><br />
+                      <a href="#">View Services</a><br />
+                  </td>
+                </tr>
+                <tr>
+                  <td>UI</td>
+                  <td>10.0.0.0</td>
+                  <td>Online</td>
+                  <td>
+                      <a href="#">Restart</a><br />
+                      <a href="#">View Services</a><br />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+    </body>
+</html>
