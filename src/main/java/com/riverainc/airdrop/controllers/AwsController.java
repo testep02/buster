@@ -49,7 +49,7 @@ public class AwsController {
         model.addAttribute("envs", envs);
     }
     
-    @RequestMapping("/aws/environments/environment")
+    @RequestMapping("/aws/environments/envDetails")
     public void getEnvironmentDetails(@RequestParam(value="envName", required=true) String envName, Model model) {
         System.out.println("Env passed: " + envName);
     }
