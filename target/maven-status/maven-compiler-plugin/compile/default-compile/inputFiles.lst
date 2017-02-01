@@ -12,6 +12,7 @@
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/commands/AnsibleCommand.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/BusterBuild.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/JenkinsProject.java
+/Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/BuildConfig.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/commands/EC2Command.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/AuthenticatedUser.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/BackupSnapshot.java

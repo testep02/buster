@@ -31,7 +31,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @EnableAutoConfiguration(exclude = JmxAutoConfiguration.class)
 public class Application extends SpringBootServletInitializer {
     
-    public static String ansibleCommandExample(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
+    public static String ansibleCommandExample(Model model, 
+            @RequestParam(value="name", required=false, defaultValue="World") String name) {
         //AnsibleCommand cmd = new AnsibleCommand();
         
         //String commandText = "ping -c 3 google.com";
@@ -57,8 +58,8 @@ public class Application extends SpringBootServletInitializer {
          * 
          * */
         
-        DeploymentSql dSql = new DeploymentSql();
-        dSql.updateDeploymentEnv("319", "DEMO");
+        //DeploymentSql dSql = new DeploymentSql();
+        //dSql.updateDeploymentEnv("319", "DEMO");
         //SnapshotScheduler ss = SnapshotScheduler.getInstance();
         //ss.schedule();
         //EnvScheduler envSch = EnvScheduler.getInstance();

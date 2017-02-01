@@ -7,6 +7,8 @@
         "th:text": {
             "context": "span"
         },
+        "th:if": {},
+        "sec:authentication": {},
         "th:include": {},
         "th:src": {
             "context": "script"
@@ -14,12 +16,14 @@
         "placeholder": {
             "context": "input"
         },
+        "th:switch": {},
         "th:href": {
             "context": "link"
         },
         "th:each": {
             "context": "tr"
         },
+        "th:case": {},
         "th:attr": {
             "context": "input"
         }

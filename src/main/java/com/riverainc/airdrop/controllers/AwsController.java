@@ -50,12 +50,14 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/environments/envDetails")
-    public void getEnvironmentDetails(@RequestParam(value="envName", required=true) String envName, Model model) {
+    public void getEnvironmentDetails(@RequestParam(value="envName", required=true) 
+            String envName, Model model) {
         System.out.println("Env passed: " + envName);
     }
     
     @RequestMapping("/aws/environments/envSnapshots")
-    public void getEnvSnapshots(@RequestParam(value="envName", required=true) String envName) {
+    public void getEnvSnapshots(@RequestParam(value="envName", required=true) 
+            String envName) {
         
     }
     
@@ -76,7 +78,8 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/servers/srvrDetails")
-    public void getServerDetails(@RequestParam(value="instanceId", required=true) String instanceId, Model model) {
+    public void getServerDetails(@RequestParam(value="instanceId", required=true) 
+            String instanceId, Model model) {
         
     }
     
@@ -86,9 +89,11 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/services/srvcDetails")
-    public void getServiceDetails(@RequestParam(value="instanceId", required=true) String instanceId,
-                                @RequestParam(value="srvcName", required=true) String serviceName,
-                                Model model) {
+    public void getServiceDetails(@RequestParam(value="instanceId", required=true) 
+            String instanceId,
+            @RequestParam(value="srvcName", required=true) 
+            String serviceName,
+            Model model) {
         
     }
     
@@ -98,7 +103,8 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/instances/instance")
-    public void getInstanceDetails(@RequestParam(value="instanceId", required=true) String instanceId) {
+    public void getInstanceDetails(@RequestParam(value="instanceId", required=true) 
+            String instanceId) {
         System.out.println("InstanceId Passed: " + instanceId);
     }
     
@@ -108,12 +114,14 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/schedule/schedule")
-    public void getScheduleDetails(@RequestParam(value="sheduleName") String schName) {
+    public void getScheduleDetails(@RequestParam(value="sheduleName") 
+            String schName) {
         System.out.println("Schedule Name Passed: " + schName);
     }
     
     @RequestMapping("/aws/schedule/editSchedule")
-    public void editSchedule(@RequestParam(value="scheduleName") String schName) {
+    public void editSchedule(@RequestParam(value="scheduleName") 
+            String schName) {
         System.out.println("Schedule Name Passed: " + schName);
     }
     
@@ -123,7 +131,8 @@ public class AwsController {
     }
     
     @RequestMapping("/aws/schedule/createScheduleAction")
-    public void createScheduleAction(@RequestParam(value="schName", defaultValue="Generic Schedule") String schName,
+    public void createScheduleAction(@RequestParam(value="schName", 
+            defaultValue="Generic Schedule") String schName,
             @RequestParam(value="schDesc") String schDesc,
             @RequestParam(value="schEnabled") String schEnabled,
             @RequestParam(value="schCron") String schCron,
@@ -131,4 +140,9 @@ public class AwsController {
         
     }
     
+    @RequestMapping("/aws/snapshots/snapshots")
+    public void getAllSnapshots() {
+        SnapshotSql sql = new SnapshotSql();
+        
+    }    
 }

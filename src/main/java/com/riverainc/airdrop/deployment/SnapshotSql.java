@@ -6,6 +6,7 @@
 package com.riverainc.airdrop.deployment;
 
 import com.riverainc.airdrop.models.EnvBackup;
+import com.riverainc.airdrop.models.Environment;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -109,5 +112,11 @@ public class SnapshotSql {
                 System.out.println("There was an error closing prepared statement or connection");
             }
         }
+    }
+    
+    public List<Environment> getAllSnapshots() {
+        List<Environment> envs = new ArrayList<>();
+        
+        return envs;
     }
 }

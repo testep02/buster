@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>AirDrop - AWS Environments</title>
+        <title>Buster - AWS Environments</title>
         
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -53,16 +53,17 @@ and open the template in the editor.
                                             </td>
                                             <td>
                                                 <div class="media">
-                                                    <a th:href="@{/aws/environments/environment" class="pull-left">
+                                                    <a th:href="@{/aws/environments/environment}" class="pull-left">
                                                         <img th:src="@{../../assets/images/E6-Environment-{envName}.png(envName=${env.key})}" 
                                                              class="media-photo" style="max-width: 128px;" th:attr="alt=${env.key}" />
                                                     </a>
                                                     <div class="media-body">
-                                                        <span class="media-meta pull-right"><a href="#">Shutdown</a></span>
+                                                        <span class="media-meta pull-right"><a href="#">Shutdown</a></span><br />
+                                                        <span class="media-meta pull-right"><a href="#">Restart</a></span>
                                                         <h4 class="title" th:text="${env.key}">
                                                             <span class="pull-right" th:classappend="${env.value}" th:text="${env.value}"></span>
                                                         </h4>
-                                                        <p class="summary">This is where some other information about the environment can go. WE can put anything here.</p>
+                                                        <p class="summary">This is where some other information about the environment can go. We can put anything here.</p>
                                                     </div>
                                                 </div>
                                             </td>

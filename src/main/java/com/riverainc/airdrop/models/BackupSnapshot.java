@@ -5,6 +5,8 @@
  */
 package com.riverainc.airdrop.models;
 
+import java.util.Date;
+
 /**
  *
  * @author testep
@@ -13,6 +15,7 @@ public class BackupSnapshot {
     private String snapshotId;
     private String backupInstanceId;
     private String backupVolumeId;
+    private Date backupDate;
 
     /**
      * @return the snapshotId

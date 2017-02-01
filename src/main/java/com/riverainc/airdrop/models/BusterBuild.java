@@ -5,6 +5,8 @@
  */
 package com.riverainc.airdrop.models;
 
+import java.util.Date;
+
 /**
  *
  * @author testep
@@ -25,10 +27,29 @@ public class BusterBuild {
     private int buildId;
     private int buildConfigId;
     private String buildName;
-    private int buildStatus;
-    private int buildState;
+    private int buildStatus; // Success/Failure during build
+    private int buildState; // One of the 11 choices above
     private String buildVersion;
+    private Date buildDate;
+    private Date nextDeploymentDate;
 
+    public BusterBuild(int buildId, int buildConfigId, String buildName, int buildStatus,
+            int buildState, String buildVersion, Date buildDate,
+            Date nextDeploymentDate) {
+        this.buildId = buildId;
+        this.buildConfigId = buildConfigId;
+        this.buildName = buildName;
+        this.buildStatus = buildStatus;
+        this.buildState = buildState;
+        this.buildVersion = buildVersion;
+        this.buildDate = buildDate;
+        this.nextDeploymentDate = nextDeploymentDate;
+    }
+    
+    public BusterBuild() {
+        
+    }
+    
     /**
      * @return the buildId
      */
@@ -111,5 +132,33 @@ public class BusterBuild {
      */
     public void setBuildVersion(String buildVersion) {
         this.buildVersion = buildVersion;
+    }
+
+    /**
+     * @return the buildDate
+     */
+    public Date getBuildDate() {
+        return buildDate;
+    }
+
+    /**
+     * @param buildDate the buildDate to set
+     */
+    public void setBuildDate(Date buildDate) {
+        this.buildDate = buildDate;
+    }
+
+    /**
+     * @return the nextDeploymentDate
+     */
+    public Date getNextDeploymentDate() {
+        return nextDeploymentDate;
+    }
+
+    /**
+     * @param nextDeploymentDate the nextDeploymentDate to set
+     */
+    public void setNextDeploymentDate(Date nextDeploymentDate) {
+        this.nextDeploymentDate = nextDeploymentDate;
     }
 }

@@ -20,17 +20,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/home").setViewName("home");
-        registry.addViewController("/").setViewName("home");
-        registry.addViewController("/aws/home").setViewName("awsHome");
-        registry.addViewController("/aws/environments").setViewName("awsEnvironments");
-        registry.addViewController("/aws/environments/environment").setViewName("awsEnvironment");
-        registry.addViewController("/aws/environments/envSnapshots").setViewName("awsEnvSnapshots");
-        registry.addViewController("/aws/environments/createSnapshot").setViewName("awsCreateSnapshot");
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/deployments/deploymentList").setViewName("deploymentList");
-        registry.addViewController("/deployments/scheduleDeployment").setViewName("scheduleDeployment");
-        registry.addViewController("/deployments/deploymentScheduleWindows").setViewName("deploymentScheduleWindows");
-        
+        registry.addViewController("/home");
+        registry.addViewController("/");
+        registry.addViewController("/aws/home");
+        registry.addViewController("/aws/environments");
+        registry.addViewController("/aws/environments/environment");
+        registry.addViewController("/aws/environments/envSnapshots");
+        registry.addViewController("/aws/environments/createSnapshot");
+        registry.addViewController("/login");
+        registry.addViewController("/deployments/deploymentList");
+        registry.addViewController("/deployments/scheduleDeployment");
+        registry.addViewController("/deployments/deploymentScheduleWindows");
+        registry.addViewController("/deployments/approveBuild");
+        registry.addViewController("/aws/snapshots/snapshots");
     }
 }
