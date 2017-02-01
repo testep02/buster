@@ -46,7 +46,7 @@ public class DeploymentSql {
     private ResultSet rs = null;
     
     private String deploymentsDbConnection = "jdbc:postgresql://localhost:5432/buster";
-    private String deploymentsDbUser = "postgres";
+    private String deploymentsDbUser = "buster";
     private String deploymentsDbAuth = "i4m4pldg";
     
     private String dateFormat = "MM/dd/yyyy";
