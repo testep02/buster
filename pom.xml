@@ -3,12 +3,14 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.riverainc</groupId>
     <artifactId>buster</artifactId>
+    <version>20170110</version>
     <packaging>jar</packaging>
-    <name>buster</name>
+    <name>Buster</name>
     <description>Deployment workflow application</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.0.RELEASE</version>
         <relativePath/>
         <!-- lookup parent from repository -->
     </parent>
@@ -112,5 +114,6 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
 </project>
