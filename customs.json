@@ -1,5 +1,28 @@
 {
-    "elements": {},
+    "elements": {
+        "div": {
+            "attributes": {
+                "align": {},
+                "class": {}
+            }
+        },
+        "p": {
+            "attributes": {
+                "align": {}
+            }
+        },
+        "a": {
+            "attributes": {
+                "href": {},
+                "class": {}
+            }
+        },
+        "h3": {
+            "attributes": {
+                "align": {}
+            }
+        }
+    },
     "attributes": {
         "crossorigin": {
             "context": "link"

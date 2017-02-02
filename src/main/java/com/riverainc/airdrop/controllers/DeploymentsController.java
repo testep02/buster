@@ -77,7 +77,25 @@ public class DeploymentsController {
     }
     
     @RequestMapping("/deployments/approveBuild")
-    public void approveDeployment(@RequestParam("buildNumber") int buildNumber,
+    public void approveBuild(@RequestParam("buildId") int buildId,
+            @RequestParam("currentState") int currentState,
+            Model model) {
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = auth.getPrincipal().toString();
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("buildId", buildId);
+        model.addAttribute("currentState", currentState);
+    }
+    
+    @RequestMapping("/deployments/approveBuildConfirmation")
+    public void approveBuildConfirmation(@RequestParam("buildId") int buildId,
             @RequestParam("currentState") int currentState,
             Model model) {
         
@@ -94,71 +112,78 @@ public class DeploymentsController {
         if(currentState == 0 && isUserAuthorized(currentState, roles)) {
             if(roles.contains(E6_ARTIFACT_AUDITOR_TEST) || roles.contains(E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
-                sql.incrementBuildState(buildNumber, ++currentState);
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
             }
         } else if(currentState == 3 && isUserAuthorized(currentState, roles)) {
             if(roles.contains(E6_ARTIFACT_AUDITOR_QA) || roles.contains(E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
-                sql.incrementBuildState(buildNumber, ++currentState);
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
             }            
         } else if(currentState == 6 && isUserAuthorized(currentState, roles)) {
             if(roles.contains(E6_ARTIFACT_AUDITOR_ALPHA) || roles.contains(E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
-                sql.incrementBuildState(buildNumber, ++currentState);
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
             }
         }
         
-        
+        model.addAttribute("currentUser", currentUser);
         model.addAttribute("userAuthStatus", userAuthStatus);
-        model.addAttribute("buildNumber", buildNumber);
-    }
-    
-    @RequestMapping("/deployments/confirmApproval")
-    public void confirmApproval(@RequestParam("buildNumber") int buildNumber,
-            Model model) {
-        
-        model.addAttribute("buildNumber", buildNumber);
-        
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String currentUser = auth.getPrincipal().toString();
+        model.addAttribute("buildId", buildId);
     }
     
     @RequestMapping("/deployments/rejectDeployment")
-    public void rejectDeployment(@RequestParam("buildNumber") int buildNumber,
+    public void rejectDeployment(@RequestParam("buildId") int buildId,
             Model model) {
-        
-        model.addAttribute("buildNumber", buildNumber);
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
+        
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        DeploymentSql sql = new DeploymentSql();
+        
+        BusterBuild build = sql.getBuildDetails(buildId);
+        
+        model.addAttribute("roles", roles);
+        model.addAttribute("build", build);
     }
     
     @RequestMapping("/deployments/confirmRejection")
-    public void confirmRejection(@RequestParam("buildNumber") int buildNumber,
+    public void confirmRejection(@RequestParam("buildId") int buildId,
             Model model) {
         
-        model.addAttribute("buildNumber", buildNumber);
+        model.addAttribute("buildId", buildId);
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
     }
     
     @RequestMapping("/deployments/scheduleDeployment")
-    public void scheduleDeployment(@RequestParam("buildNumber") int buildNumber,
+    public void scheduleDeployment(@RequestParam("buildId") int buildId,
             Model model) {
         
-        model.addAttribute("buildNumber", buildNumber);
+        model.addAttribute("buildId", buildId);
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
     }
     
     @RequestMapping("/deployments/confirmSchedule")
-    public void confirmSchedule(@RequestParam("buildNumber") int buildNumber,
+    public void confirmSchedule(@RequestParam("buildId") int buildId,
             Date deploymentDate,
             Model model) {
         
-        model.addAttribute("buildNumber", buildNumber);
+        model.addAttribute("buildId", buildId);
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();

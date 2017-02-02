@@ -26,31 +26,26 @@ import java.util.Map;
  */
 public class DeploymentSql {
     
+    // TEMP DB CONNECTION SETTINGS. DO NOT CHANGE.
     private String deploymentsDbConnection = "jdbc:postgresql://localhost:5432/buster";
     private String deploymentsDbUser = "postgres";
     private String deploymentsDbAuth = "i4m4pldg";
     
-    private String updateDeploymentEnvQuery = "UPDATE build" 
-            + " SET build_state = ?"
-            + " WHERE build_id = ?";
-    private PreparedStatement updateDeploymentStmt = null;
-    
+    // Prepared Statements and Queries
     private PreparedStatement incrementBuildStateStmt = null;
-    
     private String incrementBuildStateQuery = "UPDATE build SET build_state = ? WHERE build_id = ?";
     
-    private String selectDeployments = "SELECT * FROM build ORDER BY build_date DESC";
+    private PreparedStatement insertApprovalLogStmt = null;
+    private String insertApprovalLogQuery = "INSERT INTO build_approval_logs" 
+            + " (build_id, build_approver_uid, build_approval_date)"
+            + " VALUES (?, ?, ?)";
     
     private PreparedStatement selectDeploymentsStmt = null;
+    private String selectDeployments = "SELECT * FROM build ORDER BY build_date DESC";
     
-    private String updateDeploymentDateQuery = "UPDATE build"
-            + " SET build_date = ?"
-            + " WHERE build_id = ?";
-    private PreparedStatement updateDeploymentDateStmt = null;
-    
-    private String updateDeploymentApproverQuery = "UPDATE build"
-            + " SET ";
-    private PreparedStatement updateDeploymentApproverStmt = null;
+    private PreparedStatement selectBuildStmt = null;
+    private String selectBuildQuery = "SELECT build_name, build_date, build_version, build_state FROM build " 
+            + "WHERE build_id = ?";
     
     private ResultSet rs = null;
     
@@ -62,72 +57,42 @@ public class DeploymentSql {
         
     }
     
-    public void updateDeploymentEnv(String buildNumber, String deploymentEnv) {
-        
+    public BusterBuild getBuildDetails(int buildId) {
+        BusterBuild bb = new BusterBuild();
         
         try {
-            //DateFormat df = new SimpleDateFormat(dateFormat);
-            //Date date = df.parse(deploymentDate);
-            //long time = date.getTime();
-            //Timestamp ts = new Timestamp(time);
-            
             conn = DriverManager.getConnection(deploymentsDbConnection, deploymentsDbUser,
                                             deploymentsDbAuth);
             conn.setAutoCommit(false);
             
-            updateDeploymentStmt = conn.prepareStatement(updateDeploymentEnvQuery);
+            selectBuildStmt = conn.prepareStatement(selectBuildQuery);
+            selectBuildStmt.setInt(1, buildId);
+            ResultSet selectBuildResult = selectBuildStmt.executeQuery();
             
-            updateDeploymentStmt.setString(1, deploymentEnv);
-            //updateDeploymentStmt.setTimestamp(2, ts);
-            updateDeploymentStmt.setInt(2, Integer.parseInt(buildNumber));
+            if(selectBuildResult.next()) {
+                bb.setBuildId(buildId);
+                bb.setBuildName(selectBuildResult.getString("build_name"));
+                bb.setBuildDate(selectBuildResult.getDate("build_date"));
+                bb.setBuildVersion(selectBuildResult.getString("build_version"));
+            }
             
-            updateDeploymentStmt.executeUpdate();
-            
-            conn.commit();
-            
+            if(null != selectBuildStmt) {
+                selectBuildStmt.close();
+            }
+
+            if(null != conn) {
+                conn.close();
+            }
         } catch(SQLException se) {
-            try {
-                conn.rollback();
-            } catch(SQLException se2) {
-                System.out.println("There was an error rolling back changes...");
-            }
-            
-            System.out.println("There was an error updating a deployment, rolling back changes:");
-            System.out.println("Build Number: " + buildNumber);
-            System.out.println("Build Env: " + deploymentEnv);
+            System.out.println("There was an error querying for build...");
+            System.out.println("Build Number: " + buildId);
             System.out.println(se.getMessage());
-        } finally {
-            try {
-                if(null != updateDeploymentStmt) {
-                    updateDeploymentStmt.close();
-                }
-                
-                if(null != conn) {
-                    conn.close();
-                }
-            } catch(SQLException se3) {
-                System.out.println("There was an error closing prepared statement or connection");
-            }
         }
+        
+        return bb;
     }
     
-    public void updateNextScheduledDeploymentDate(String buildNumber, String deploymentDate) {
-        try {
-            DateFormat df = new SimpleDateFormat(dateFormat);
-            Date date = df.parse(deploymentDate);
-            long time = date.getTime();
-            Timestamp ts = new Timestamp(time);
-            
-            conn.setAutoCommit(false);
-            
-            updateDeploymentDateStmt = conn.prepareStatement(updateDeploymentDateQuery);
-            updateDeploymentDateStmt.setTimestamp(1, ts);
-        } catch(ParseException | SQLException e) {
-            
-        }
-    }
-    
-    public void incrementBuildState(int buildNumber, int newState) {
+    public boolean incrementBuildState(int buildNumber, int newState) {
         try {
             conn = DriverManager.getConnection(deploymentsDbConnection, deploymentsDbUser,
                                             deploymentsDbAuth);
@@ -145,9 +110,42 @@ public class DeploymentSql {
             System.out.println("Build Number: " + buildNumber);
             System.out.println("New State: " + newState);
             System.out.println(se2.getMessage());
+            return false;
         } finally {
             try {
-                if(null != updateDeploymentStmt) {
+                if(null != incrementBuildStateStmt) {
+                    incrementBuildStateStmt.close();
+                }
+                
+                if(null != conn) {
+                    conn.close();
+                }
+            } catch(SQLException se3) {
+                System.out.println("There was an error closing prepared statement or connection");
+            }
+        }
+        
+        return true;
+    }
+    
+    public void insertBuildApprovalLog(String currentUser, int buildId, int currentState) {
+        try {
+            conn = DriverManager.getConnection(deploymentsDbConnection, deploymentsDbUser,
+                                            deploymentsDbAuth);
+            
+            conn.setAutoCommit(false);
+            
+            
+            
+            conn.commit();
+        } catch(SQLException se2) {
+            System.out.println("There was an error rolling back changes...");
+            System.out.println("There was an error updating a deployment, rolling back changes:");
+            System.out.println("Build Number: " + buildId);
+            System.out.println(se2.getMessage());
+        } finally {
+            try {
+                if(null != incrementBuildStateStmt) {
                     incrementBuildStateStmt.close();
                 }
                 

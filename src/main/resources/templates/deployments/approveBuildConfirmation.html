@@ -9,11 +9,11 @@ and open the template in the editor.
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Buster - Approve Build</title>
+        <title>Buster - Approve Build Confirmation</title>
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               crossorigin="anonymous" />
-        <link rel="stylesheet" th:href="@{../../assets/css/main.css}" />
+        <link rel="stylesheet" th:href="@{../assets/css/main.css}" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
     </head>
@@ -21,14 +21,8 @@ and open the template in the editor.
         <div th:include="fragments/mainmenu" />
         
         <div class="container">
-            <h2>Approve Build</h2>
-            Are you sure you want to approve build <span th:text="${buildId}"></span>?
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a th:href="@{/deployments/approveBuildConfirmation(buildId=${buildId}, currentState=${currentState})}" class="btn btn-success">
-                Approve
-            </a>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="/deployments/deploymentList" class="btn btn-danger">Cancel</a> 
+            <h2>Build Approval Confirmation</h2>
+            You have approved build <span th:text="${buildNumber}"></span>
         </div>
     </body>
 </html>

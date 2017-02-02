@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Buster - Reject Build</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              crossorigin="anonymous" />
+        <link rel="stylesheet" th:href="@{../assets/css/main.css}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div th:include="fragments/mainmenu" />
+        
+        <div class="container">
+            <h2>Reject Build</h2>
+            
+            <table class="table">
+                <thead>
+                    <th>Build Name</th>
+                    <th>Build ID</th>
+                    <th>Build Date</th>
+                    <th>Build Version</th>
+                    <th>Current Environment</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span th:text="${build.buildName}"></span></td>
+                        <td><span th:text="${build.buildId}"></span></td>
+                        <td><span th:text="${build.buildDate}"></span></td>
+                        <td><span th:text="${build.buildVersion}"></span></td>
+                        <td th:switch="${build.buildState}">
+                            <span th:case="0">Test</span>
+                            <span th:case="1">Test</span>
+                            <span th:case="2">Test</span>
+                            <span th:case="3">QA</span>
+                            <span th:case="4">QA</span>
+                            <span th:case="5">QA</span>
+                            <span th:case="6">Alpha</span>
+                            <span th:case="7">Alpha</span>
+                            <span th:case="8">Alpha</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/deployments/rejectBuildConfirm(buildId=${build.buildId})}" class="btn btn-success">Reject</a>
+                            <a href="/deployments/deploymentList" class="btn btn-danger">Cancel</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

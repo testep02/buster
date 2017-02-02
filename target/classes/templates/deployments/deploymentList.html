@@ -10,7 +10,7 @@ and open the template in the editor.
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Buster - Deployment List</title>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
               crossorigin="anonymous" />
         <link rel="stylesheet" th:href="@{../assets/css/main.css}" />
@@ -18,130 +18,128 @@ and open the template in the editor.
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        
+
         <div th:include="fragments/mainmenu" />
-        
+
         <div class="container">
             <h2>Eagle6 Builds</h2>
-            
+
             <table class="table">
-              <thead>
-                <tr>
-                  <th>Build Name</th>
-                  <th>Build Version</th>
-                  <th>Build Date</th>
-                  <th>Result</th>
-                  <th>Environment</th>
-                  <th>State</th>
-                  <th>Action</th>
-                  <th>Approved By</th>
-                  <th>Scheduled Deployment</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- TODO -->
-                <!-- This needs to be an iterator for DB results -->
-                <tr th:each="build, buildIter: ${builds}">
-                    <td><span th:text="${build.buildName}"></span></td>
-                    <td><span th:text="${build.buildVersion}"></span></td>
-                    <td><span th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}"></span></td>
-                    <td th:switch="${build.buildStatus}">
-                        <span th:case="'0'" style="color: red;">Failed</span>
-                        <span th:case="'1'" style="color: green;">Success</span>
-                    </td>
-                    
-                    <!-- Need to determine the current environment based on the state code. -->
-                    <td th:switch="${build.buildState}">
-                        <span th:case="'0'">Test</span>
-                        <span th:case="'1'">Test</span>
-                        <span th:case="'2'">Test</span>
-                        <span th:case="'3'">QA</span>
-                        <span th:case="'4'">QA</span>
-                        <span th:case="'5'">QA</span>
-                        <span th:case="'6'">Alpha</span>
-                        <span th:case="'7'">Alpha</span>
-                        <span th:case="'8'">Alpha</span>
-                        <span th:case="'9'">Demo</span>
-                    </td>
-                    <!-- Need to display the status text instead of the state code -->
-                    <td th:switch="${build.buildState}">
-                        <span th:case="'0'">In Test; Awaiting QA Approval</span>
-                        <span th:case="'1'">In Test; QA Approved; Awaiting Scheduling</span>
-                        <span th:case="'2'">In Test; QA Approved; Scheduled for QA</span>
-                        <span th:case="'3'">In QA; Awaiting QA Approval</span>
-                        <span th:case="'4'">In QA; QA Approved; Awaiting Scheduling</span>
-                        <span th:case="'5'">In QA; QA Approved; Scheduled for Demo</span>
-                        <span th:case="'6'">In Alpha; Awaiting Business Approval</span>
-                        <span th:case="'7'">In Alpha; Business Approved; Awaiting Scheduling</span>
-                        <span th:case="'8'">In Alpha; Business Approved; Scheduled for Demo</span>
-                        <span th:case="'9'">In Demo; Gold Build</span>
-                        <span th:case="'99'" style="color: red;">REJECTED</span>
-                    </td>
-                    <td th:switch="${build.buildState}">
-                        <div th:case="'0'">
-                            <a th:href="@{/deployments/approveDeployment(id=${build.buildId}, currentState=${build.buildState})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Approve Test
-                            </a>
-                        </div>
-                        <div th:case="'1'">
-                            <a th:href="@{/deployments/scheduleDeployment(id=${build.buildId})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Schedule QA Deployment
-                            </a>
-                        </div>
-                        <div th:case="'2'">
-                            Scheduled for Deployment
-                        </div>
-                        <div th:case="'3'">
-                            <a th:href="@{/deployments/approveDeployment(id=${build.buildId}, currentState=${build.buildState})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Approve QA
-                            </a>
-                        </div>
-                        <div th:case="'4'">
-                            <a th:href="@{/deployments/scheduleDeployment(id=${build.buildId})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Schedule Alpha Deployment
-                            </a>
-                        </div>
-                        <div th:case="'5'">
-                            Scheduled for Deployment
-                        </div>
-                        <div th:case="'6'">
-                            <a th:href="@{/deployments/approveDeployment(id=${build.buildId}, currentState=${build.buildState})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Approve Alpha
-                            </a>
-                        </div>
-                        <div th:case="'7'">
-                            <a th:href="@{/deployments/scheduleDeployment(id=${build.buildId})}" 
-                               th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
-                                Schedule Demo Deployment
-                            </a>
-                        </div>
-                        <div th:case="'8'">
-                            Scheduled for Deployment
-                        </div>
-                        <div th:case="'9'">
-                            Gold Build
-                        </div>
-                        <div th:case="100">
-                            <a th:href="#" th:if="${#lists.contains(roles, 'E6_BUSTER_ADMIN ')}">
-                                View Build Logs
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <span sec:authentication="name"></span>
-                    </td>
-                    <td>
-                        <span th:if="${build.buildState} eq '1' or ${build.buildState} eq '5' or ${build.buildState} eq '8'" 
-                            th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}">
-                        </span>
-                    </td>
-                </tr>
-              </tbody>
+                <thead>
+                    <tr>
+                        <th>Build Name</th>
+                        <th>Build Version</th>
+                        <th>Build Date</th>
+                        <th>Result</th>
+                        <th>Environment</th>
+                        <th>State</th>
+                        <th>Action</th>
+                        <th>Approved By</th>
+                        <th>Scheduled Deployment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="build, buildIter: ${builds}">
+                        <td><span th:text="${build.buildName}"></span></td>
+                        <td><span th:text="${build.buildVersion}"></span></td>
+                        <td><span th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}"></span></td>
+                        <td th:switch="${build.buildStatus}">
+                            <span th:case="'0'" style="color: red;">Failed</span>
+                            <span th:case="'1'" style="color: green;">Success</span>
+                        </td>
+
+                        <!-- Need to determine the current environment based on the state code. -->
+                        <td th:switch="${build.buildState}">
+                            <span th:case="'0'">Test</span>
+                            <span th:case="'1'">Test</span>
+                            <span th:case="'2'">Test</span>
+                            <span th:case="'3'">QA</span>
+                            <span th:case="'4'">QA</span>
+                            <span th:case="'5'">QA</span>
+                            <span th:case="'6'">Alpha</span>
+                            <span th:case="'7'">Alpha</span>
+                            <span th:case="'8'">Alpha</span>
+                            <span th:case="'9'">Demo</span>
+                        </td>
+                        <!-- Need to display the status text instead of the state code -->
+                        <td th:switch="${build.buildState}">
+                            <span th:case="'0'">In Test; Awaiting QA Approval</span>
+                            <span th:case="'1'">In Test; QA Approved; Awaiting Scheduling</span>
+                            <span th:case="'2'">In Test; QA Approved; Scheduled for QA</span>
+                            <span th:case="'3'">In QA; Awaiting QA Approval</span>
+                            <span th:case="'4'">In QA; QA Approved; Awaiting Scheduling</span>
+                            <span th:case="'5'">In QA; QA Approved; Scheduled for Demo</span>
+                            <span th:case="'6'">In Alpha; Awaiting Business Approval</span>
+                            <span th:case="'7'">In Alpha; Business Approved; Awaiting Scheduling</span>
+                            <span th:case="'8'">In Alpha; Business Approved; Scheduled for Demo</span>
+                            <span th:case="'9'">In Demo; Gold Build</span>
+                            <span th:case="'99'" style="color: red;">REJECTED</span>
+                        </td>
+                        <td th:switch="${build.buildState}">
+                            <div th:case="'0'">
+                                <a th:href="@{/deployments/approveBuild(buildId=${build.buildId}, currentState=${build.buildState})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Approve Test
+                                </a>
+                            </div>
+                            <div th:case="'1'">
+                                <a th:href="@{/deployments/scheduleDeployment(buildId=${build.buildId})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Schedule QA Deployment
+                                </a>
+                            </div>
+                            <div th:case="'2'">
+                                Scheduled for Deployment
+                            </div>
+                            <div th:case="'3'">
+                                <a th:href="@{/deployments/approveBuild(buildId=${build.buildId}, currentState=${build.buildState})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Approve QA
+                                </a>
+                            </div>
+                            <div th:case="'4'">
+                                <a th:href="@{/deployments/scheduleDeployment(buildId=${build.buildId})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Schedule Alpha Deployment
+                                </a>
+                            </div>
+                            <div th:case="'5'">
+                                Scheduled for Deployment
+                            </div>
+                            <div th:case="'6'">
+                                <a th:href="@{/deployments/approveBuild(buildId=${build.buildId}, currentState=${build.buildState})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Approve Alpha
+                                </a>
+                            </div>
+                            <div th:case="'7'">
+                                <a th:href="@{/deployments/scheduleDeployment(buildId=${build.buildId})}" 
+                                   th:if="${#lists.contains(roles, 'E6_ARTIFACT_AUDITOR_TEST') or #lists.contains(roles, 'E6_BUSTER_ADMIN')}">
+                                    Schedule Demo Deployment
+                                </a>
+                            </div>
+                            <div th:case="'8'">
+                                Scheduled for Deployment
+                            </div>
+                            <div th:case="'9'">
+                                Gold Build
+                            </div>
+                            <div th:case="100">
+                                <a th:href="#" th:if="${#lists.contains(roles, 'E6_BUSTER_ADMIN ')}">
+                                    View Build Logs
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <span sec:authentication="name"></span>
+                        </td>
+                        <td>
+                            <span th:if="${build.buildState} eq '1' or ${build.buildState} eq '5' or ${build.buildState} eq '8'" 
+                                  th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}">
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     </body>
