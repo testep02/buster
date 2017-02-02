@@ -32,6 +32,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addViewController("/deployments/scheduleDeployment");
         registry.addViewController("/deployments/deploymentScheduleWindows");
         registry.addViewController("/deployments/approveBuild");
+        registry.addViewController("/deployments/approveBuildConfirmation");
+        registry.addViewController("/deployments/rejectBuild");
+        registry.addViewController("/deployments/rejectBuildConfirmation");
         registry.addViewController("/aws/snapshots/snapshots");
     }
 }

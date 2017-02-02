@@ -31,18 +31,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @EnableAutoConfiguration(exclude = JmxAutoConfiguration.class)
 public class Application extends SpringBootServletInitializer {
     
-    public static String ansibleCommandExample(Model model, 
-            @RequestParam(value="name", required=false, defaultValue="World") String name) {
+    //public static String ansibleCommandExample(Model model, 
+    //        @RequestParam(value="name", required=false, defaultValue="World") String name) {
         //AnsibleCommand cmd = new AnsibleCommand();
         
         //String commandText = "ping -c 3 google.com";
         
         //return cmd.executeCommand(commandText);
         
-        model.addAttribute("name", name);
+    //    model.addAttribute("name", name);
         
-        return "home";
-    }
+    //    return "home";
+    //}
     
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
