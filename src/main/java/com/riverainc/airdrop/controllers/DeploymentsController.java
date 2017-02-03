@@ -7,6 +7,7 @@ package com.riverainc.airdrop.controllers;
 
 import com.riverainc.airdrop.deployment.DeploymentSql;
 import com.riverainc.airdrop.models.BusterBuild;
+import com.riverainc.airdrop.security.BusterRoles;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,17 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DeploymentsController {
-    
-    private static final String E6_ARTIFACT_AUDITOR_TEST = "E6_ARTIFACT_AUDITOR_TEST";
-    private static final String E6_ARTIFACT_AUDITOR_QA = "E6_ARTIFACT_AUDITOR_QA";
-    private static final String E6_ARTIFACT_AUDITOR_ALPHA = "E6_ARTIFACT_AUDITOR_ALPHA";
-    private static final String E6_ARTIFACT_AUDITOR_DEMO = "E6_ARTIFACT_AUDITOR_DEMO";
-    
-    private static final String E6_DEPLOY_AUDITOR_QA = "E6_DEPLOY_AUDITOR_QA";
-    private static final String E6_DEPLOY_AUDITOR_ALPHA = "E6_DEPLOY_AUDITOR_ALPHA";
-    private static final String E6_DEPLOY_AUDITOR_DEMO = "E6_DEPLOY_AUDITOR_DEMO";
-    
-    private static final String E6_BUSTER_ADMIN = "E6_BUSTER_ADMIN";
     
     @RequestMapping("/deployments/deploymentList")
     public void getDeploymentList(Model model) {
@@ -109,22 +99,25 @@ public class DeploymentsController {
             roles.add(role.getAuthority());
         });
         
-        if(currentState == 0 && isUserAuthorized(currentState, roles)) {
-            if(roles.contains(E6_ARTIFACT_AUDITOR_TEST) || roles.contains(E6_BUSTER_ADMIN)) {
+        if(currentState == 0 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_TEST) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
                 if(sql.incrementBuildState(buildId, ++currentState)) {
                     
                 }
             }
-        } else if(currentState == 3 && isUserAuthorized(currentState, roles)) {
-            if(roles.contains(E6_ARTIFACT_AUDITOR_QA) || roles.contains(E6_BUSTER_ADMIN)) {
+        } else if(currentState == 3 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_QA) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
                 if(sql.incrementBuildState(buildId, ++currentState)) {
                     
                 }
             }            
-        } else if(currentState == 6 && isUserAuthorized(currentState, roles)) {
-            if(roles.contains(E6_ARTIFACT_AUDITOR_ALPHA) || roles.contains(E6_BUSTER_ADMIN)) {
+        } else if(currentState == 6 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_ALPHA) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
                 DeploymentSql sql = new DeploymentSql();
                 if(sql.incrementBuildState(buildId, ++currentState)) {
                     
@@ -137,8 +130,8 @@ public class DeploymentsController {
         model.addAttribute("buildId", buildId);
     }
     
-    @RequestMapping("/deployments/rejectDeployment")
-    public void rejectDeployment(@RequestParam("buildId") int buildId,
+    @RequestMapping("/deployments/rejectBuild")
+    public void rejectBuild(@RequestParam("buildId") int buildId,
             Model model) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -158,14 +151,47 @@ public class DeploymentsController {
         model.addAttribute("build", build);
     }
     
-    @RequestMapping("/deployments/confirmRejection")
+    @RequestMapping("/deployments/rejectBuildConfirmation")
     public void confirmRejection(@RequestParam("buildId") int buildId,
+            @RequestParam("currentState") int currentState,
             Model model) {
         
         model.addAttribute("buildId", buildId);
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
+        
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        if(currentState == 0 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_TEST) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
+                DeploymentSql sql = new DeploymentSql();
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
+            }
+        } else if(currentState == 3 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_QA) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
+                DeploymentSql sql = new DeploymentSql();
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
+            }            
+        } else if(currentState == 6 && BusterRoles.isUserInRole(currentState, roles)) {
+            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_ALPHA) || 
+                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
+                DeploymentSql sql = new DeploymentSql();
+                if(sql.incrementBuildState(buildId, ++currentState)) {
+                    
+                }
+            }
+        }
     }
     
     @RequestMapping("/deployments/scheduleDeployment")
@@ -187,58 +213,5 @@ public class DeploymentsController {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
-    }
-    
-    private boolean isUserAuthorized(int currentState, List<String> roles) {
-        switch(currentState){
-            case 0:
-                if(roles.contains(E6_ARTIFACT_AUDITOR_TEST) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-            
-            case 1:
-                if(roles.contains(E6_DEPLOY_AUDITOR_QA) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-                
-            case 3:
-                if(roles.contains(E6_ARTIFACT_AUDITOR_QA) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-                
-            case 4:
-                if(roles.contains(E6_DEPLOY_AUDITOR_ALPHA) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-                
-            case 6:
-                if(roles.contains(E6_ARTIFACT_AUDITOR_ALPHA) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-                
-            case 7:
-                if(roles.contains(E6_DEPLOY_AUDITOR_DEMO) || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-                
-            case 99:
-                if(roles.contains(E6_ARTIFACT_AUDITOR_DEMO) 
-                        || roles.contains(E6_ARTIFACT_AUDITOR_ALPHA)
-                        || roles.contains(E6_ARTIFACT_AUDITOR_QA)
-                        || roles.contains(E6_ARTIFACT_AUDITOR_TEST)
-                        || roles.contains(E6_BUSTER_ADMIN))
-                    return true;
-                else
-                    return false;
-            
-            default:
-                return false;
-        }
     }
 }

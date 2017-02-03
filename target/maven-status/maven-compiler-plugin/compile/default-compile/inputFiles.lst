@@ -6,6 +6,7 @@
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/controllers/DeploymentsController.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/Environment.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/JenkinsBuildSummary.java
+/Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/security/BusterRoles.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/BusterBuildConfig.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/JenkinsBuild.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/scheduler/EnvScheduler.java

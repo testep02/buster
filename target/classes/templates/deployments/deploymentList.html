@@ -129,6 +129,13 @@ and open the template in the editor.
                                     View Build Logs
                                 </a>
                             </div>
+                            <div>
+                                <p>
+                                    <a th:href="@{/deployments/rejectBuild(buildId = ${build.buildId})}">
+                                        Reject
+                                    </a>
+                                </p>
+                            </div>
                         </td>
                         <td>
                             <span sec:authentication="name"></span>

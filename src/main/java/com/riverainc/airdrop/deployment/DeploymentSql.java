@@ -28,7 +28,7 @@ public class DeploymentSql {
     
     // TEMP DB CONNECTION SETTINGS. DO NOT CHANGE.
     private String deploymentsDbConnection = "jdbc:postgresql://localhost:5432/buster";
-    private String deploymentsDbUser = "buster";
+    private String deploymentsDbUser = "postgres";
     private String deploymentsDbAuth = "i4m4pldg";
     
     // Prepared Statements and Queries
