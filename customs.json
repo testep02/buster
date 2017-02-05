@@ -1,28 +1,5 @@
 {
-    "elements": {
-        "div": {
-            "attributes": {
-                "align": {},
-                "class": {}
-            }
-        },
-        "p": {
-            "attributes": {
-                "align": {}
-            }
-        },
-        "a": {
-            "attributes": {
-                "href": {},
-                "class": {}
-            }
-        },
-        "h3": {
-            "attributes": {
-                "align": {}
-            }
-        }
-    },
+    "elements": {},
     "attributes": {
         "crossorigin": {
             "context": "link"
@@ -30,25 +7,28 @@
         "th:text": {
             "context": "span"
         },
-        "th:if": {},
-        "sec:authentication": {},
         "th:include": {},
+        "th:object": {},
+        "th:each": {
+            "context": "tr"
+        },
+        "th:field": {},
+        "th:if": {},
         "th:src": {
             "context": "script"
         },
         "placeholder": {
             "context": "input"
         },
-        "th:switch": {},
         "th:href": {
             "context": "link"
         },
-        "th:each": {
-            "context": "tr"
+        "th:case": {
+            "context": "span"
         },
-        "th:case": {},
         "th:attr": {
             "context": "input"
-        }
+        },
+        "th:value": {}
     }
 }

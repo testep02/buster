@@ -57,7 +57,7 @@ and open the template in the editor.
                             <span th:case="8">Alpha</span>
                         </td>
                         <td>
-                            <a th:href="@{/deployments/rejectBuildConfirm(buildId=${build.buildId})}" class="btn btn-success">Reject</a>
+                            <a th:href="@{/deployments/rejectBuildConfirmation(buildId=${build.buildId}, currentState = ${build.buildState})}" class="btn btn-success">Reject</a>
                             <a href="/deployments/deploymentList" class="btn btn-danger">Cancel</a>
                         </td>
                     </tr>

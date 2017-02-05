@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Buster - Schedule Confirmation</title>
+        
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" th:href="@{../../assets/css/main.css}" />
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" th:src="@{../../assets/js/main.js}"></script>
+    </head>
+    <body>
+        <div th:include="fragments/mainmenu" />
+        
+        <div class="container">
+            <h2>Schedule Confirmation</h2>
+            
+            <p>
+                You have scheduled <span th:text="${scheduledBuild.buildName}"></span>
+                for deployment on <span th:text="${scheduledBuild.nextDeploymentDate}"></span>.
+            </p>
+            <p>
+                <a href="/deployments/deploymentList" class="btn btn-default">Back to Deployment List</a>
+            </p>
+        </div>
+    </body>
+</html>

@@ -24,7 +24,10 @@ and open the template in the editor.
             <h2>Build Rejection Confirmation</h2>
             
             <p>
-                You have rejected build <span th:text="${buildNumber}"></span>
+                You have rejected build <span th:text="${buildId}"></span>.
+            </p>
+            <p>
+                <a href="/deployments/deploymentList" class="btn btn-default">Back to Deployment List</a>
             </p>
         </div>
     </body>

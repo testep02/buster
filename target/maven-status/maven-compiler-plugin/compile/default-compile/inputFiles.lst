@@ -1,7 +1,9 @@
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/controllers/AwsController.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/EnvBackup.java
+/Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/ScheduledBuild.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/scheduler/jobs/SnapshotJob.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/controllers/HomeController.java
+/Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/BuildLog.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/scheduler/jobs/StartEnvJob.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/controllers/DeploymentsController.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/models/Environment.java
@@ -23,6 +25,7 @@
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/deployment/SnapshotSql.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/deployment/DeploymentSql.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/Application.java
+/Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/scheduler/jobs/DeploymentJob.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/scheduler/jobs/StopEnvJob.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/MvcConfig.java
 /Users/testep/NetBeansProjects/AirDrop/src/main/java/com/riverainc/airdrop/WebSecurityConfig.java

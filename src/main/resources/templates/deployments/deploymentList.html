@@ -41,7 +41,11 @@ and open the template in the editor.
                 <tbody>
                     <tr th:each="build, buildIter: ${builds}">
                         <td><span th:text="${build.buildName}"></span></td>
-                        <td><span th:text="${build.buildVersion}"></span></td>
+                        <td>
+                            <a th:href="@{/deployments/buildLogs(buildId = ${build.buildId})}">
+                                <span th:text="${build.buildVersion}"></span>
+                            </a>
+                        </td>
                         <td><span th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}"></span></td>
                         <td th:switch="${build.buildStatus}">
                             <span th:case="'0'" style="color: red;">Failed</span>
@@ -63,16 +67,16 @@ and open the template in the editor.
                         </td>
                         <!-- Need to display the status text instead of the state code -->
                         <td th:switch="${build.buildState}">
-                            <span th:case="'0'">In Test; Awaiting QA Approval</span>
-                            <span th:case="'1'">In Test; QA Approved; Awaiting Scheduling</span>
-                            <span th:case="'2'">In Test; QA Approved; Scheduled for QA</span>
-                            <span th:case="'3'">In QA; Awaiting QA Approval</span>
-                            <span th:case="'4'">In QA; QA Approved; Awaiting Scheduling</span>
-                            <span th:case="'5'">In QA; QA Approved; Scheduled for Demo</span>
-                            <span th:case="'6'">In Alpha; Awaiting Business Approval</span>
-                            <span th:case="'7'">In Alpha; Business Approved; Awaiting Scheduling</span>
-                            <span th:case="'8'">In Alpha; Business Approved; Scheduled for Demo</span>
-                            <span th:case="'9'">In Demo; Gold Build</span>
+                            <span th:case="'0'">In Test<br /> Awaiting QA Approval</span>
+                            <span th:case="'1'">In Test<br />QA Approved<br />Awaiting Scheduling</span>
+                            <span th:case="'2'">In Test<br />QA Approved<br />Scheduled for QA</span>
+                            <span th:case="'3'">In QA<br />Awaiting QA Approval</span>
+                            <span th:case="'4'">In QA<br />QA Approved<br />Awaiting Scheduling</span>
+                            <span th:case="'5'">In QA<br />QA Approved<br />Scheduled for Demo</span>
+                            <span th:case="'6'">In Alpha<br />Awaiting Business Approval</span>
+                            <span th:case="'7'">In Alpha<br />Business Approved<br />Awaiting Scheduling</span>
+                            <span th:case="'8'">In Alpha<br />Business Approved<br />Scheduled for Demo</span>
+                            <span th:case="'9'">In Demo<br />Gold Build</span>
                             <span th:case="'99'" style="color: red;">REJECTED</span>
                         </td>
                         <td th:switch="${build.buildState}">
@@ -131,7 +135,7 @@ and open the template in the editor.
                             </div>
                             <div>
                                 <p>
-                                    <a th:href="@{/deployments/rejectBuild(buildId = ${build.buildId})}">
+                                    <a th:href="@{/deployments/rejectBuild(buildId = ${build.buildId}, currentState = ${build.buildState})}">
                                         Reject
                                     </a>
                                 </p>
@@ -141,8 +145,8 @@ and open the template in the editor.
                             <span sec:authentication="name"></span>
                         </td>
                         <td>
-                            <span th:if="${build.buildState} eq '1' or ${build.buildState} eq '5' or ${build.buildState} eq '8'" 
-                                  th:text="${#dates.format(build.buildDate, 'MM-dd-yyyy')}">
+                            <span th:if="${build.buildState} eq '2' or ${build.buildState} eq '5' or ${build.buildState} eq '8'" 
+                                  th:text="${#dates.format(build.nextDeploymentDate, 'MM-dd-yyyy')}">
                             </span>
                         </td>
                     </tr>

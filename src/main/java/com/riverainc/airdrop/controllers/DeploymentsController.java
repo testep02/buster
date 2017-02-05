@@ -6,7 +6,9 @@
 package com.riverainc.airdrop.controllers;
 
 import com.riverainc.airdrop.deployment.DeploymentSql;
+import com.riverainc.airdrop.models.BuildLog;
 import com.riverainc.airdrop.models.BusterBuild;
+import com.riverainc.airdrop.models.ScheduledBuild;
 import com.riverainc.airdrop.security.BusterRoles;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,7 +20,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -80,6 +86,7 @@ public class DeploymentsController {
         });
         
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("roles", roles);
         model.addAttribute("buildId", buildId);
         model.addAttribute("currentState", currentState);
     }
@@ -89,8 +96,6 @@ public class DeploymentsController {
             @RequestParam("currentState") int currentState,
             Model model) {
         
-        int userAuthStatus = 0;
-        
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
         List<String> roles = new ArrayList<>();
@@ -99,39 +104,20 @@ public class DeploymentsController {
             roles.add(role.getAuthority());
         });
         
-        if(currentState == 0 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_TEST) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }
-        } else if(currentState == 3 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_QA) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }            
-        } else if(currentState == 6 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_ALPHA) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }
+        if(BusterRoles.isUserInRole(currentState, roles)) {
+            DeploymentSql sql = new DeploymentSql();
+            sql.incrementBuildState(buildId, ++currentState);
+            sql.insertBuildLog(currentUser, buildId, currentState, ++currentState);
         }
         
         model.addAttribute("currentUser", currentUser);
-        model.addAttribute("userAuthStatus", userAuthStatus);
+        model.addAttribute("roles", roles);
         model.addAttribute("buildId", buildId);
     }
     
     @RequestMapping("/deployments/rejectBuild")
     public void rejectBuild(@RequestParam("buildId") int buildId,
+            @RequestParam("currentState") int currentState,
             Model model) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -156,7 +142,29 @@ public class DeploymentsController {
             @RequestParam("currentState") int currentState,
             Model model) {
         
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String currentUser = auth.getPrincipal().toString();
+        
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        if(BusterRoles.isUserInRole(currentState, roles)) {
+                DeploymentSql sql = new DeploymentSql();
+                sql.updateBuildReject(currentUser, buildId, currentState);
+                sql.insertBuildLog(currentUser, buildId, currentState, 99);
+        }
+        
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("roles", roles);
         model.addAttribute("buildId", buildId);
+    }
+    
+    @RequestMapping("/deployments/scheduleDeployment")
+    public void scheduleDeployment(@RequestParam("buildId") int buildId,
+            Model model) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
@@ -167,51 +175,51 @@ public class DeploymentsController {
             roles.add(role.getAuthority());
         });
         
-        if(currentState == 0 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_TEST) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }
-        } else if(currentState == 3 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_QA) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }            
-        } else if(currentState == 6 && BusterRoles.isUserInRole(currentState, roles)) {
-            if(roles.contains(BusterRoles.E6_ARTIFACT_AUDITOR_ALPHA) || 
-                    roles.contains(BusterRoles.E6_BUSTER_ADMIN)) {
-                DeploymentSql sql = new DeploymentSql();
-                if(sql.incrementBuildState(buildId, ++currentState)) {
-                    
-                }
-            }
-        }
+        DeploymentSql sql = new DeploymentSql();
+        BusterBuild bb = sql.getBuildDetails(buildId);
+        
+        model.addAttribute("build", bb);
     }
     
-    @RequestMapping("/deployments/scheduleDeployment")
-    public void scheduleDeployment(@RequestParam("buildId") int buildId,
-            Model model) {
-        
-        model.addAttribute("buildId", buildId);
+    @PostMapping("/deployments/scheduleDeploymentConfirmation")
+    public void confirmSchedule(@ModelAttribute BusterBuild scheduledBuild, Model model) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
+        int currentBuildState = scheduledBuild.getBuildState();
+        
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        DeploymentSql sql = new DeploymentSql();
+        sql.createDeployment(scheduledBuild);
+        sql.incrementBuildState(scheduledBuild.getBuildId(), ++currentBuildState);
+        sql.insertBuildLog(currentUser, scheduledBuild.getBuildId(), currentBuildState, ++currentBuildState);
+        
+        model.addAttribute("scheduledBuild", scheduledBuild);
     }
     
-    @RequestMapping("/deployments/confirmSchedule")
-    public void confirmSchedule(@RequestParam("buildId") int buildId,
-            Date deploymentDate,
-            Model model) {
-        
-        model.addAttribute("buildId", buildId);
-        
+    @RequestMapping("/deployments/buildLogs")
+    public void viewBuildLogs(@RequestParam("buildId") int buildId, Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String currentUser = auth.getPrincipal().toString();
+        
+        List<String> roles = new ArrayList<>();
+        
+        auth.getAuthorities().stream().forEach((role) -> {
+            roles.add(role.getAuthority());
+        });
+        
+        DeploymentSql sql = new DeploymentSql();
+        BusterBuild bb = sql.getBuildDetails(buildId);
+        List<BuildLog> buildLogs = sql.getBuildLogs(buildId);
+        
+        model.addAttribute("roles", roles);
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("build", bb);
+        model.addAttribute("buildLogs", buildLogs);
     }
 }
