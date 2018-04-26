@@ -31,9 +31,9 @@ public class RiveraADAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         
         List<GrantedAuthority> grantedAuths = new ArrayList<>();
-        AuthenticatedUser user = new AuthenticatedUser();
-        LDAPUtil ldap = new LDAPUtil();
-        user = ldap.authenticateUser(authentication.getName(), authentication.getCredentials().toString());
+        //LDAPUtil ldap = new LDAPUtil();
+        DummyAuth ldap = new DummyAuth();
+        AuthenticatedUser user = ldap.authenticateUser(authentication.getName(), authentication.getCredentials().toString());
         
         if(user.getIsUserAuthenticated() && null != user.getUserGroups() && user.getUserGroups().size() > 0) {
             user.getUserGroups().stream().forEach((i) -> {
@@ -47,7 +47,7 @@ public class RiveraADAuthenticationProvider implements AuthenticationProvider {
             token.setDetails(user);
             
             return new UsernamePasswordAuthenticationToken(authentication.getName(), authentication.getCredentials(), grantedAuths);
-        }
+        }        
         
         return null;
     }
