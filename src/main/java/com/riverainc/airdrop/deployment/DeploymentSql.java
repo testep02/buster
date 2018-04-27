@@ -34,7 +34,7 @@ public class DeploymentSql {
     
     // TEMP DB CONNECTION SETTINGS. DO NOT CHANGE.
     private String deploymentsDbConnection = "jdbc:postgresql://localhost:5432/buster";
-    private String deploymentsDbUser = "postgres";
+    private String deploymentsDbUser = "buster";
     private String deploymentsDbAuth = "i4m4pldg";
     
     // Prepared Statements and Queries
@@ -290,7 +290,7 @@ public class DeploymentSql {
             }
         } catch(SQLException | NullPointerException | ClassNotFoundException se) {
             System.out.println("There was an error selecting deployments:");
-            System.out.println("Cause: " + se.getCause());
+            System.out.println("Cause: " + se.getMessage());
             System.out.println("Stacktrace:");
             for(int i = 0; i < se.getStackTrace().length; i++) {
                 System.out.println(se.getStackTrace()[i]);
