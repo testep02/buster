@@ -197,7 +197,8 @@ public class DeploymentsController {
         DeploymentSql sql = new DeploymentSql();
         sql.createDeployment(scheduledBuild);
         sql.incrementBuildState(scheduledBuild.getBuildId(), ++currentBuildState);
-        sql.insertBuildLog(currentUser, scheduledBuild.getBuildId(), currentBuildState, ++currentBuildState);
+        sql.insertBuildLog(currentUser, scheduledBuild.getBuildId(), 
+                currentBuildState, ++currentBuildState);
         
         model.addAttribute("scheduledBuild", scheduledBuild);
     }

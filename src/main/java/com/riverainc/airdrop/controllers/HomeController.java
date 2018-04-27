@@ -24,18 +24,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class HomeController {
     
     @RequestMapping("/")
-    public String home(Model model, @RequestParam(value="name", required=false, defaultValue="World") String name) {
-        JenkinsBuild jenkinsBuild = new JenkinsBuild();
+    public String home(Model model, @RequestParam(value="name", required=false, 
+            defaultValue="World") String name) {
+        //JenkinsBuild jenkinsBuild = new JenkinsBuild();
         
-        model.addAttribute("jenkinsBuilds", jenkinsBuild);
+        //model.addAttribute("jenkinsBuilds", jenkinsBuild);
         
-        EC2Command ec2Command = new EC2Command();
-        LDAPUtil lc = new LDAPUtil();
+        //EC2Command ec2Command = new EC2Command();
+        //LDAPUtil lc = new LDAPUtil();
         
-        DescribeAvailabilityZonesResult azResult = ec2Command.myAvailabilityZones();
+        //DescribeAvailabilityZonesResult azResult = ec2Command.myAvailabilityZones();
         
-        model.addAttribute("numAzs", azResult.getAvailabilityZones().size());
-        model.addAttribute("azs", azResult.getAvailabilityZones().toArray());
+        //model.addAttribute("numAzs", azResult.getAvailabilityZones().size());
+        //model.addAttribute("azs", azResult.getAvailabilityZones().toArray());
         
         return "home";
     }
