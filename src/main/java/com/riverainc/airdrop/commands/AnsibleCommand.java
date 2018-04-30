@@ -14,13 +14,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
@@ -42,7 +40,7 @@ public class AnsibleCommand {
             
             String line = "";
             
-            while((line = reader.readLine()) != null) {
+            while(null != (line = reader.readLine())) {
                 output.append(line).append("<br />");
             }
             
@@ -52,8 +50,7 @@ public class AnsibleCommand {
             
             Element buildAction = null;
             
-            for( Iterator iter = actionElements.iterator(); iter.hasNext(); ) {
-                Element actionElement = (Element)iter.next();
+            for (Element actionElement : actionElements) {
                 if(actionElement.attribute("_class") != null && actionElement.attribute("_class").getValue().equals("hudson.plugins.git.util.BuildData"))
                     buildAction = actionElement;
             }
@@ -85,8 +82,10 @@ public class AnsibleCommand {
             System.out.println(output.toString());
             //output.append(method.getResponseBodyAsString());
             
-        } catch(Exception e) {
-            e.printStackTrace();
+        } catch(IOException | InterruptedException | DocumentException e) {
+            System.out.println("Error in: " + e.getClass());
+            System.out.println(e.getMessage());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         
         return output.toString();

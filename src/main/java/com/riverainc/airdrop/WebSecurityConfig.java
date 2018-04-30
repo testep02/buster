@@ -6,8 +6,6 @@
 package com.riverainc.airdrop;
 
 import com.riverainc.airdrop.security.RiveraADAuthenticationProvider;
-import java.io.IOException;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  *
@@ -48,13 +45,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest hsr, HttpServletResponse hsr1, Authentication a) 
-                            throws IOException, ServletException {
-                        redirectStrategy.sendRedirect(hsr, hsr1, "/");
-                    }
-                })
+                .successHandler((HttpServletRequest hsr, HttpServletResponse hsr1, Authentication a) -> {
+                    redirectStrategy.sendRedirect(hsr, hsr1, "/");
+        })
                 .permitAll()
                 .and()
                 .logout()

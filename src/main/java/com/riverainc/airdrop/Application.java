@@ -5,22 +5,12 @@
  */
 package com.riverainc.airdrop;
 
-import com.riverainc.airdrop.commands.AnsibleCommand;
-import com.riverainc.airdrop.commands.EC2Command;
-import com.riverainc.airdrop.deployment.DeploymentSql;
-import com.riverainc.airdrop.scheduler.EnvScheduler;
-import com.riverainc.airdrop.scheduler.SnapshotScheduler;
-import com.riverainc.airdrop.scheduler.jobs.StartEnvJob;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
