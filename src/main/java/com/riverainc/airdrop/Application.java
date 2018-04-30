@@ -5,6 +5,7 @@
  */
 package com.riverainc.airdrop;
 
+import com.riverainc.airdrop.commands.VstsCommand;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -47,6 +48,9 @@ public class Application extends SpringBootServletInitializer {
          * TEST SECTION. NOT FOR PRODUCTION USE!!
          * 
          * */
+        
+        VstsCommand vstsCmd = new VstsCommand();
+        vstsCmd.testVsts();
         
         //DeploymentSql dSql = new DeploymentSql();
         //dSql.updateDeploymentEnv("319", "DEMO");
