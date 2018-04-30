@@ -44,6 +44,8 @@ public class VstsCommand {
             HttpResponse response = client.execute(request);
             
             statusCode = response.getStatusLine().getStatusCode();
+            
+            System.out.println("Response_code: " + statusCode);
         } catch (IOException ioe) {
             System.out.println("Error getting projects: ");
             System.out.println(ioe.getMessage());
