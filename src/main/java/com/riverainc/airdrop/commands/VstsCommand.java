@@ -33,7 +33,7 @@ public class VstsCommand {
         int statusCode = 0;
         
         HttpGet request = new HttpGet("https://getbeyond.visualstudio.com/DefaultCollection/_apis/projects");
-        String auth = "oggrxnghhk5xqfap3ioqlgvfitzx54ze7ukledugzkvitijr6cxa";
+        String auth = ":oggrxnghhk5xqfap3ioqlgvfitzx54ze7ukledugzkvitijr6cxa";
         byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
         String authHeader = "Basic " + new String(encodedAuth);
         request.setHeader(HttpHeaders.AUTHORIZATION, authHeader);
@@ -46,6 +46,7 @@ public class VstsCommand {
             statusCode = response.getStatusLine().getStatusCode();
             
             System.out.println("Response_code: " + statusCode);
+            System.out.println(response.toString());
         } catch (IOException ioe) {
             System.out.println("Error getting projects: ");
             System.out.println(ioe.getMessage());
