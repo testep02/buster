@@ -30,7 +30,7 @@ public class VstsHttp {
     private String vstsCollectionUrl;
     
     public VstsHttp() {
-        vstsConfig = new VstsConfig();
+        
     }
     
     public VstsCollection getCollection() {
