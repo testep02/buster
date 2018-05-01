@@ -35,7 +35,7 @@ public class VstsHttp {
     
     @Autowired
     public void setVstsConfig(VstsConfig config) {
-        this.vstsConfig = vstsConfig;
+        this.vstsConfig = config;
         System.out.println("VSTS Config Set.");
     }
     
