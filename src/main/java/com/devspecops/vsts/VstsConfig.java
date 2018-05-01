@@ -6,11 +6,15 @@
 package com.devspecops.vsts;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  *
  * @author EstepTravis
  */
+@Configuration
+@PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix = "vsts")
 public class VstsConfig {
     private String username;
