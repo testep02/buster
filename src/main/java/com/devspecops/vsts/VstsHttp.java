@@ -35,6 +35,8 @@ public class VstsHttp {
     
     public VstsCollection getCollection() {
         VstsCollection collection = null;
+        System.out.println("CONFIG VALUE: ");
+        System.out.println(vstsConfig.getOrgName());
         try {
             ObjectMapper objMapper = new ObjectMapper();
             collection = objMapper.readValue(
@@ -76,7 +78,7 @@ public class VstsHttp {
                     jsonData = content.getBytes();
                 }
             }
-        } catch( IOException ioe) {
+        } catch( IOException | UnsupportedOperationException ioe) {
             System.out.println("There was an error getting VSTS Projects.");
             System.out.println(ioe.getMessage());
         }
