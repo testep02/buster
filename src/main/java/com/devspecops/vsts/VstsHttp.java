@@ -24,13 +24,19 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author EstepTravis
  */
 public class VstsHttp {
-    @Autowired
+    
     private VstsConfig vstsConfig;
     
     private String vstsCollectionUrl;
     
     public VstsHttp() {
         
+    }
+    
+    @Autowired
+    public void setVstsConfig(VstsConfig config) {
+        this.vstsConfig = vstsConfig;
+        System.out.println("VSTS Config Set.");
     }
     
     public VstsCollection getCollection() {
