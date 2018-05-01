@@ -88,6 +88,9 @@ public class VstsHttp {
                 .append(vstsConfig.getCollection())
                 .append("/_apis/projects");
         
+        System.out.println("Collection URL: ");
+        System.out.println(sb.toString());
+        
         return sb.toString();
     }
     
