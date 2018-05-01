@@ -13,15 +13,15 @@ import java.util.Arrays;
  */
 public class VstsCollection {
     private int count;
-    private VstsProject[] projects;
+    private VstsProject[] value;
     
     public VstsCollection() {
         
     }
     
-    public VstsCollection(int count, VstsProject[] projects) {
+    public VstsCollection(int count, VstsProject[] value) {
         this.count = count;
-        this.projects = projects;
+        this.value = value;
     }
 
     /**
@@ -39,17 +39,17 @@ public class VstsCollection {
     }
 
     /**
-     * @return the projects
+     * @return the value
      */
-    public VstsProject[] getProjects() {
-        return projects;
+    public VstsProject[] getValue() {
+        return value;
     }
 
     /**
-     * @param projects the projects to set
+     * @param projects the value to set
      */
-    public void setProjects(VstsProject[] projects) {
-        this.projects = projects;
+    public void setValue(VstsProject[] values) {
+        this.value = values;
     }
     
     @Override
@@ -58,7 +58,7 @@ public class VstsCollection {
         
         sb.append("**** VSTS Collection Object ****\n");
         sb.append("id = ").append(getCount()).append("\n")
-                .append("projects = ").append(Arrays.toString(getProjects()));
+                .append("projects = ").append(Arrays.toString(getValue()));
         
         return sb.toString();
     }
