@@ -6,12 +6,14 @@
 package com.devspecops.airdrop;
 
 import com.devspecops.airdrop.commands.VstsCommand;
+import com.devspecops.vsts.VstsConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 /**
  *
@@ -20,6 +22,7 @@ import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = JmxAutoConfiguration.class)
+@ComponentScan(basePackageClasses = VstsConfig.class)
 public class Application extends SpringBootServletInitializer {
     
     //public static String ansibleCommandExample(Model model, 
