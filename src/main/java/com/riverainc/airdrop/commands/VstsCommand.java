@@ -6,10 +6,13 @@
 package com.riverainc.airdrop.commands;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -44,6 +47,18 @@ public class VstsCommand {
             HttpResponse response = client.execute(request);
             
             statusCode = response.getStatusLine().getStatusCode();
+            
+            HttpEntity entity = response.getEntity();
+            
+            if(null != entity) {
+                InputStream ios = entity.getContent();
+                String content = IOUtils.toString(ios);
+                
+                if(null != content && !content.isEmpty()) {
+                    System.out.println("----------- Content ----------");
+                    System.out.println(content);
+                }
+            }
             
             
             System.out.println("Response_code: " + statusCode);
