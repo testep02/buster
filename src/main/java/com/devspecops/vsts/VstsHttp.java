@@ -17,13 +17,16 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author EstepTravis
  */
 public class VstsHttp {
+    @Autowired
     private VstsConfig vstsConfig;
+    
     private String vstsCollectionUrl;
     
     public VstsHttp() {
