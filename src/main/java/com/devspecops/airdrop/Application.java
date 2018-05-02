@@ -26,6 +26,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = JmxAutoConfiguration.class)
 @EnableConfigurationProperties(VstsConfig.class)
+@ComponentScan
 public class Application extends SpringBootServletInitializer {
     
     //public static String ansibleCommandExample(Model model, 
