@@ -33,6 +33,7 @@ public class VstsHttp {
     private String vstsCollectionUrl;
     
     public VstsHttp() {
+        vstsConfig = new VstsConfig();
         vstsConfig.setAuthToken("oggrxnghhk5xqfap3ioqlgvfitzx54ze7ukledugzkvitijr6cxa");
         vstsConfig.setOrgName("getbeyond");
         vstsConfig.setCollection("DefaultCollection");
