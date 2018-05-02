@@ -47,9 +47,9 @@ public class Application extends SpringBootServletInitializer {
     }
     
     public static void main(String[] args) throws Exception {
-        ApplicationContext context = SpringApplication.run(Application.class, args);
-        VstsHttp vstsHttp = context.getBean(VstsHttp.class);
-        vstsHttp.getCollection();
+        SpringApplication.run(Application.class, args);
+        //VstsHttp vstsHttp = context.getBean(VstsHttp.class);
+        //vstsHttp.getCollection();
         
         /*** 
          * 
@@ -57,8 +57,8 @@ public class Application extends SpringBootServletInitializer {
          * 
          * */
         
-        //VstsCommand vstsCmd = new VstsCommand();
-        //vstsCmd.testVsts();
+        VstsCommand vstsCmd = new VstsCommand();
+        vstsCmd.testVsts();
         
         //DeploymentSql dSql = new DeploymentSql();
         //dSql.updateDeploymentEnv("319", "DEMO");
