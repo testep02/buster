@@ -19,19 +19,19 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "vsts")
 public class VstsConfig {
     
-    @Value("vsts.username")
+    @Value("username")
     private String username;
     
-    @Value("vsts.authToken")
+    @Value("authToken")
     private String authToken;
     
-    @Value("vsts.orgName")
+    @Value("orgName")
     private String orgName;
     
-    @Value("vsts.collection")
+    @Value("collection")
     private String collection;
     
-    @Value("vsts.projectName")
+    @Value("projectName")
     private String projectName;
     
     public VstsConfig() {
