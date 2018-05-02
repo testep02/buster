@@ -8,12 +8,13 @@ package com.devspecops.vsts;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author EstepTravis
  */
-@Configuration
+@Component
 @PropertySource("classpath:application.properties")
 @ConfigurationProperties(prefix = "vsts")
 public class VstsConfig {
@@ -22,6 +23,19 @@ public class VstsConfig {
     private String orgName;
     private String collection;
     private String projectName;
+    
+    public VstsConfig() {
+        
+    }
+    
+    public VstsConfig(String username, String authToken, String orgName,
+            String collection, String projectName) {
+        this.username = username;
+        this.authToken = authToken;
+        this.orgName = orgName;
+        this.collection = collection;
+        this.projectName = projectName;
+    }
 
     /**
      * @return the username
