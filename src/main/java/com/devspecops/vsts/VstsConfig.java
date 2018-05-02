@@ -16,22 +16,12 @@ import org.springframework.stereotype.Component;
  * @author EstepTravis
  */
 
-@ConfigurationProperties(prefix = "vsts")
 public class VstsConfig {
     
-    @Value("username")
     private String username;
-    
-    @Value("authToken")
     private String authToken;
-    
-    @Value("orgName")
     private String orgName;
-    
-    @Value("collection")
     private String collection;
-    
-    @Value("projectName")
     private String projectName;
     
     public VstsConfig() {

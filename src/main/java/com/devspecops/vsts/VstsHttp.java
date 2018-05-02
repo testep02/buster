@@ -28,13 +28,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class VstsHttp {
     
-    @Autowired
     private VstsConfig vstsConfig;
     
     private String vstsCollectionUrl;
     
     public VstsHttp() {
-        
+        vstsConfig.setAuthToken("oggrxnghhk5xqfap3ioqlgvfitzx54ze7ukledugzkvitijr6cxa");
+        vstsConfig.setOrgName("getbeyond");
+        vstsConfig.setCollection("DefaultCollection");
     }
     
     public VstsCollection getCollection() {
