@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
  *
  * @author EstepTravis
  */
-@Component
+
 @ConfigurationProperties(prefix = "vsts")
 public class VstsConfig {
     private String username;

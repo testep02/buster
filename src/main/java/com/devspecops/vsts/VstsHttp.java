@@ -18,25 +18,23 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author EstepTravis
  */
+
+@Component
 public class VstsHttp {
     
+    @Autowired
     private VstsConfig vstsConfig;
     
     private String vstsCollectionUrl;
     
     public VstsHttp() {
         
-    }
-    
-    @Autowired
-    public void setVstsConfig(VstsConfig config) {
-        this.vstsConfig = config;
-        System.out.println("VSTS Config Set.");
     }
     
     public VstsCollection getCollection() {
