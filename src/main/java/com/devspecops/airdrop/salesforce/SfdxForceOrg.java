@@ -70,11 +70,13 @@ public class SfdxForceOrg implements ISfdxCommand {
             
             String line = "";
             
+            System.out.println("Results from ping:");
+            
             while((line = reader.readLine()) != null) {
-                output.append(line + "\n");
+                //output.append(line + "\n");
+                System.out.println("Console: " + line + "\n");
             }
             
-            System.out.println("Results from ping:");
             System.out.println(output.toString());
         } catch (Exception e) {
             System.out.println("There was an error trying to run ping: ");
