@@ -25,5 +25,5 @@ public interface ISfdxCommand {
     String getSubCommand();
     String getAction();
     
-    void execute();
+    void execute(String command);
 }

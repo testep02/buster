@@ -57,13 +57,13 @@ public class SfdxForceOrg implements ISfdxCommand {
     }
     
     @Override
-    public void execute() {
+    public void execute(String command) {
         StringBuffer output = new StringBuffer();
         
         Process process;
         
         try {
-            process = Runtime.getRuntime().exec("ping -c 3 www.google.com");
+            process = Runtime.getRuntime().exec(command);
             process.waitFor();
             
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
