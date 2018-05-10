@@ -6,6 +6,7 @@
 package com.devspecops.airdrop;
 
 import com.devspecops.airdrop.commands.VstsCommand;
+import com.devspecops.airdrop.salesforce.SfdxForceOrg;
 import com.devspecops.vsts.VstsConfig;
 import com.devspecops.vsts.VstsHttp;
 import org.springframework.boot.SpringApplication;
@@ -56,6 +57,9 @@ public class Application extends SpringBootServletInitializer {
         
         VstsCommand vstsCmd = new VstsCommand();
         vstsCmd.testVsts();
+        
+        SfdxForceOrg org = new SfdxForceOrg();
+        org.execute();
         
         //DeploymentSql dSql = new DeploymentSql();
         //dSql.updateDeploymentEnv("319", "DEMO");
