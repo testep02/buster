@@ -75,7 +75,7 @@ public class SfdxForceOrg implements ISfdxCommand {
             }
             
             System.out.println("Results from ping:");
-            System.out.println(output);
+            System.out.println(output.toString());
         } catch (Exception e) {
             System.out.println("There was an error trying to run ping: ");
             System.out.println(e.getMessage());
