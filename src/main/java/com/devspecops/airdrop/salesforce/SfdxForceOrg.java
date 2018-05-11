@@ -67,14 +67,20 @@ public class SfdxForceOrg implements ISfdxCommand {
             process.waitFor();
             
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             
             String line = "";
+            String errorLine = "";
             
-            System.out.println("Results from ping:");
+            System.out.println("Results from exec command:");
             
             while((line = reader.readLine()) != null) {
                 //output.append(line + "\n");
                 System.out.println("Console: " + line + "\n");
+            }
+            
+            while((errorLine = errorReader.readLine()) != null) {
+                System.out.println("Error: " + errorLine + "\n");
             }
             
             System.out.println(output.toString());
