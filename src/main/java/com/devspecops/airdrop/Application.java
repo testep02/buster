@@ -59,8 +59,9 @@ public class Application extends SpringBootServletInitializer {
         vstsCmd.testVsts();
         
         SfdxForceOrg org = new SfdxForceOrg();
-        org.execute("sfdx force:org:list");
-        org.execute("sfdx force:org:list -all");
+        org.execute("whoami");
+//org.execute("sfdx force:org:list");
+        //org.execute("sfdx force:org:list -all");
         
         //DeploymentSql dSql = new DeploymentSql();
         //dSql.updateDeploymentEnv("319", "DEMO");
